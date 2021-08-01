@@ -1,0 +1,214 @@
+/*Import desired fonts*/
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap");
+
+/*Convention: overwritting (i.e. reseting) these stylings, just in case.*/
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  list-style-type: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* ***START: Styling of the index.html*** */
+
+/*Set the html to take up 100% of the browser height*/
+html {
+  height: 100%;
+}
+
+/*Styling the index.html body container: font and background image*/
+#index-body {
+  font-family: "Gloria Hallelujah", cursive;
+  background-image: url("../img/background/tri-color-diamond-glass-background-618226_1280.png");
+  height: 100%; /*Set the height to be 100% of the parent container, which is html, whose height is set to 100% of the browser*/
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+
+/*Styling the "landing page" (div that's inside the index.html's body)*/
+#landing-page {
+  text-align: center;
+  padding-top: 2em;
+}
+
+h1 {
+  font-family: "Rock Salt", cursive;
+  letter-spacing: 0.2em;
+}
+
+p {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/*Start: Making the list elements display side by side.*/
+/*The method is explained here: https://css-tricks.com/centering-list-items-horizontally-slightly-trickier-than-you-might-think/*/
+#table {
+  display: table;
+  margin: 0 auto;
+}
+
+#table li {
+  display: inline;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+/*End: Making the list elements display side by side.*/
+
+.fa-paw {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/*These combinations of selectors used to targer the second (right) paw icon of the first (left) grid link,
+and the first (left) paw icon of the second (right) grid link, specifically, without tageting all four of the paw icons*/
+a[href="3x4_grid.html"] > .fa-paw:nth-child(2) {
+  padding-right: 4em;
+}
+
+a[href="3x6_grid.html"] > .fa-paw:nth-child(1) {
+  padding-left: 4em;
+}
+
+/*Styling the links' possible "states" using pseudo-classes*/
+a:link,
+a:visited,
+a:active {
+  color: black;
+}
+
+a:hover {
+  color: blue;
+  cursor: url("../img/rest/cat-paw-black(20x19).png"), pointer; /*Add a custom cursor image, with pointer as a fallback option*/
+}
+
+/* ***END: Styling of the index.html*** */
+
+
+/* ***START: Styling of the 3x4_grid.html & the 3x6_grid.html*** */
+
+#threebysix-grid-body {
+  display: flex; /*Setting display to "flex" comes with a set of connected default properties, one of which (flex-wrap) is to be altered below: https://flexbox.help/*/
+  background-image: url("../img/background/yarn-658657.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+
+#threebyfour-grid-body {
+  display: flex; /*Setting display to "flex" comes with a set of connected default properties, one of which (flex-wrap) is to be altered below: https://flexbox.help/*/
+  background-image: url("../img/background/pattern-3296033_1280.png");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+
+#threebysix-grid-body .board {
+  width: 910px;
+  height: 540px;
+  display: flex; /*Setting display to "flex" comes with a set of connected default properties, one of which (flex-wrap) is to be altered below: https://flexbox.help/*/
+  flex-wrap: wrap; /*If selecting "display: flex", "flex-wrap" is set by default to "nowrap": https://flexbox.help/*/
+  margin: auto;
+  perspective: 1000px;
+}
+
+#threebyfour-grid-body .board {
+  width: 640px;
+  height: 540px;
+  display: flex; /*Setting display to "flex" comes with a set of connected default properties, one of which (flex-wrap) is to be altered below: https://flexbox.help/*/
+  flex-wrap: wrap; /*If selecting "display: flex", "flex-wrap" is set by default to "nowrap": https://flexbox.help/*/
+  margin: auto;
+  perspective: 1000px; /*This is to make the 3D effect work - it will add depth in 3D-positioned space*/
+}
+
+/*Start: Styling of the tiles.*/
+.tile {
+  width: calc(16.666% - 10px); /*To calculate the tile width and height with the margin taken into account*/
+  height: calc(33.333% - 10px); /*Percentages represent 1/3 and 1/6, because it's a 3x6 grid. Basically it amounts to 150px x 170px tile size here*/
+  margin: 5px;
+  position: relative;
+  cursor: pointer;
+  transform: scale(1);
+  transform-style: preserve-3d; /*This should make the 3D effect work, in connection with the perspective property above,*/
+  transition: transform .5s;    /*because, "it is the CHILD elements that get the perspective view, NOT the element itself." (https://www.w3schools.com/cssref/css3_pr_perspective.asp)*/
+}
+
+#threebyfour-grid-body .tile {
+  width: calc(25% - 10px); /*Here, as opposed to above, percentages represent 1/3 and 1/4, because it's a 3x4 grid.*/
+  height: calc(33.333% - 10px); /*. Here the tile size basically amounts to 150px x 170px also, to make the game visually more consistent*/
+}
+
+.tile-front,
+.tile-back {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  position: absolute; /*Positioning in relation to the relative positioning of the .tile class above*/
+  border-radius: 10px;
+  backface-visibility: hidden;
+}
+
+#threebysix-grid-body .tile-back {
+  background:  #d68717;
+}
+
+#threebyfour-grid-body .tile-back {
+  background: #2d3f81;
+}
+
+.tile-front {
+  transform: rotateY(180deg);
+  background: #f0ead6;
+}
+
+.tile:active {
+  transform: scale(.95);
+  transition: transform .2s;
+}
+
+.tile.flipped {
+  transform: rotateY(180deg); /*Addition or removal of the .flipped class to tiles is to be regulated by JS*/
+}
+/*End: Styling of the tiles.*/
+
+/* ***END: Styling of the 3x4_grid.html & the 3x6_grid.html*** */
+
+/*Some responsiveness styling to make the links to grids on Landing Page
+still display side by side on smaller screens*/
+@media screen and (max-width: 535px) {
+
+  a[href = "3x4 grid.html"] > .fa-paw:nth-child(2) {
+  padding-right: 2em;
+}
+
+a[href = "3x6 grid.html"] > .fa-paw:nth-child(1) {
+  padding-left: 2em;
+}
+
+  .fa-paw {
+    padding: 0.5em;
+  }
+}
+
+
+@media screen and (max-width: 398px) {
+
+  a[href = "3x4 grid.html"] > .fa-paw:nth-child(2) {
+  padding-right: 0.5em;
+}
+
+a[href = "3x6 grid.html"] > .fa-paw:nth-child(1) {
+  padding-left: 0.5em;
+}
+
+  .fa-paw {
+    padding: 0.3em;
+  }
+}
